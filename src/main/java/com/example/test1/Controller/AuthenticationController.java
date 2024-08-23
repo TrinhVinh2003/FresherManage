@@ -9,6 +9,7 @@ import com.example.test1.Dto.response.AuthenticationResponse;
 import com.example.test1.Dto.response.IntrospectReponse;
 import com.example.test1.Service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/token")
-    ApiResponse<AuthenticationResponse> autheticate(@RequestBody AuthenticationRequest request){
+    ApiResponse<AuthenticationResponse> autheticate(@RequestBody @Valid AuthenticationRequest request){
         var result = authenticationService.authenticate(request);
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(result)

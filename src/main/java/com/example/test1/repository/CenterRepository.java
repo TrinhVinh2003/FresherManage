@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface CenterRepository extends JpaRepository<Center, String> {
     boolean existsByName(String name);
-    Optional<Center> findByCenter(String name);
+    Optional<Center> findByName(String name);
 }

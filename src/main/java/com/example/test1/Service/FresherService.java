@@ -17,14 +17,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FresherService {
-    private  FresherRepository fresherRepository;
-    private FresherMapper fresherMapper;
-    private  CenterRepository centerRepository;
+    private final  FresherRepository fresherRepository;
+    private final FresherMapper fresherMapper;
+    private final CenterRepository centerRepository;
 
     public FresherReponse createFresher(FresherRequest fresherRequest){
 
+        if (fresherRepository.existsByEmail(fresherRequest.getEmail()))
+            throw new AppException(ErrorCode.EMAIL_EXIST);
+
         var fresher = fresherMapper.toFresher(fresherRequest);
-        var center = centerRepository.findByCenter(fresherRequest.getName()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+        var center = centerRepository.findByName(fresherRequest.getCenter()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
         fresher.setCenter(center);
         return fresherMapper.toFresherReponse(fresherRepository.save(fresher));
     }
@@ -32,6 +35,8 @@ public class FresherService {
     public List<FresherReponse> getFreshers(){
         return fresherRepository.findAll().stream().map(fresherMapper::toFresherReponse).toList();
     }
+
+
 
 
 

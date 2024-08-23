@@ -11,13 +11,14 @@ import lombok.*;
 @Entity
 public class Assignment {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Float score1;
     private Float score2;
     private Float score3;
 
-    private Float result;
+    private Float result ;
 
     @OneToOne
     @JoinColumn(name = "fresher_id", nullable = false, referencedColumnName = "id")
@@ -26,6 +27,10 @@ public class Assignment {
     @PrePersist
     @PreUpdate
     private void calculateResult() {
-        this.result = (score1 + score2 + score3) / 3;
+        if (score1 != null && score2 != null && score3 != null) {
+            this.result = (score1 + score2 + score3) / 3;
+        } else {
+            this.result = null;
+        }
     }
 }

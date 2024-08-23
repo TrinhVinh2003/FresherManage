@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CenterService {
     private final CenterRepository centerRepository;
-
     private final    CenterMapper centerMapper;
     private final FresherRepository fresherRepository;
 
@@ -33,6 +32,7 @@ public class CenterService {
     }
 
     public List<CenterResponse> getAll(){
+
         return centerRepository.findAll().stream().map(centerMapper::toCenterReponse).toList();
     }
 

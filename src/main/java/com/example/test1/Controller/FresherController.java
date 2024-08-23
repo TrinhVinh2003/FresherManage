@@ -6,22 +6,35 @@ import com.example.test1.Dto.request.FresherRequest;
 import com.example.test1.Dto.response.FresherReponse;
 import com.example.test1.Entity.Fresher;
 import com.example.test1.Service.FresherService;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fresher")
+@RequiredArgsConstructor
 public class FresherController {
+    private static final Logger log = LoggerFactory.getLogger(FresherController.class);
     @Autowired
-    private FresherService fresherService;
+    private final FresherService fresherService;
 
-    ApiResponse<FresherReponse> createFresher(FresherRequest fresherRequest){
+    @PostMapping
+    ApiResponse<FresherReponse> createFresher(@RequestBody FresherRequest fresherRequest){
         var fresher = fresherService.createFresher(fresherRequest);
+
         return ApiResponse.<FresherReponse>builder()
                 .result(fresher)
                 .build();
     }
-
+    @GetMapping
+    ApiResponse<List<FresherReponse>> getAll(){
+        return ApiResponse.<List<FresherReponse>>builder()
+                .result(fresherService.getFreshers())
+                .build();
+    }
 
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FresherRepository  extends JpaRepository<Fresher,Long> {
-
+    boolean existsByEmail(String email);
 }
