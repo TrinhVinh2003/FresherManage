@@ -28,7 +28,7 @@ import java.util.Arrays;
 @EnableMethodSecurity
 public class SecurityConfig {
     private  final String[] PUBLIC_ENDPOINTS = {"/users","/auth/token","/auth/introspect"
-            ,"/auth/logout","/center","/fresher"};
+            ,"/auth/logout","/center","/fresher","/assignment"};
 
 
     @Autowired

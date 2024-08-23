@@ -15,7 +15,9 @@ import java.util.Set;
 @Entity
 public class Center {
     @Id
-    @Column(name = "center")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name; // Đảm bảo rằng tên trường khóa chính là "center_name"
 
     private String location;

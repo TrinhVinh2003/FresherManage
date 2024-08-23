@@ -1,9 +1,6 @@
 package com.example.test1.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -13,15 +10,22 @@ import lombok.*;
 @Entity
 public class Fresher {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private String email;
 
-    private String programmingLanguage; // Đã sửa chính tả từ "programingLanguage" thành "programmingLanguage"
+    private String programmingLanguage;
 
     @ManyToOne
-    @JoinColumn(name = "center", nullable = false, referencedColumnName = "center")
+    @JoinColumn(name = "center_id", nullable = false, referencedColumnName = "id")
     private Center center;
+
+
+    @OneToOne(mappedBy = "fresher", cascade = CascadeType.ALL)
+    private Assignment assignment;
+
+
 }
