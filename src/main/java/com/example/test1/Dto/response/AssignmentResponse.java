@@ -1,7 +1,7 @@
 package com.example.test1.Dto.response;
 
-
 import com.example.test1.Entity.Fresher;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

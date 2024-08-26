@@ -1,19 +1,18 @@
 package com.example.test1.Controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
 
 import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.RoleRequest;
 import com.example.test1.Dto.response.RoleResponse;
-
-import com.example.test1.Entity.Role;
 import com.example.test1.Service.RoleService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/roles")

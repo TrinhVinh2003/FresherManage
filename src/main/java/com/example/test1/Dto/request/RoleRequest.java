@@ -1,15 +1,9 @@
 package com.example.test1.Dto.request;
 
-import com.example.test1.Dto.response.PermissionResponse;
-import com.example.test1.Entity.Permission;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.util.Set;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter

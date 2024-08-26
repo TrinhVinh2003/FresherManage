@@ -1,7 +1,10 @@
 package com.example.test1.Entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +25,6 @@ public class Fresher {
     @ManyToOne
     @JoinColumn(name = "center_id", nullable = false, referencedColumnName = "id")
     private Center center;
-
 
     @OneToOne(mappedBy = "fresher", cascade = CascadeType.ALL)
     private Assignment assignment;

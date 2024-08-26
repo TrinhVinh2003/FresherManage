@@ -1,6 +1,7 @@
 package com.example.test1.Entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @Getter
@@ -18,7 +19,7 @@ public class Assignment {
     private Float score2;
     private Float score3;
 
-    private Float result ;
+    private Float result;
 
     @OneToOne
     @JoinColumn(name = "fresher_id", nullable = false, referencedColumnName = "id")

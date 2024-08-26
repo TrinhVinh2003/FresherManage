@@ -1,11 +1,10 @@
 package com.example.test1.Dto.request;
 
+import java.time.LocalDate;
+import java.util.List;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
@@ -16,7 +15,6 @@ public class UserUpdateRequest {
 
     String username;
     String password;
-
 
     LocalDate dob;
     List<String> roles;

@@ -1,10 +1,7 @@
 package com.example.test1.configuration;
 
-
 import java.io.IOException;
 
-import com.example.test1.Dto.request.ApiResponse;
-import com.example.test1.Exception.ErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-
+import com.example.test1.Dto.request.ApiResponse;
+import com.example.test1.Exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -22,7 +20,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {
         ErrorCode errorCode = ErrorCode.UNAUTHENTICATED;
-
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 

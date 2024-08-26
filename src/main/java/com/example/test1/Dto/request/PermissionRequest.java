@@ -3,9 +3,6 @@ package com.example.test1.Dto.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,7 +12,4 @@ public class PermissionRequest {
 
     String name;
     String description;
-
-
-
 }
