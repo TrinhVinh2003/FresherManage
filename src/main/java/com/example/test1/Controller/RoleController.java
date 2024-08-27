@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.RoleRequest;
 import com.example.test1.Dto.response.RoleResponse;
-import com.example.test1.Service.RoleService;
+import com.example.test1.Service.impl.IRoleService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class RoleController {
-    RoleService roleService;
+    IRoleService roleService;
 
     @PostMapping
     ApiResponse<RoleResponse> create(@RequestBody RoleRequest request) {

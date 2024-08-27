@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.test1.Dto.request.*;
 import com.example.test1.Dto.response.AuthenticationResponse;
 import com.example.test1.Dto.response.IntrospectReponse;
-import com.example.test1.Service.AuthenticationService;
+import com.example.test1.Service.impl.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 
 import lombok.AccessLevel;

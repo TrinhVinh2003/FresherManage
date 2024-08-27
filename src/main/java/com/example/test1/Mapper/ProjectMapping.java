@@ -15,6 +15,6 @@ public interface ProjectMapping {
 
     ProjectResponse toProjectResponse(Project project);
 
- 
+
     FresherProjectReponse toProjectFresher(Project project);
 }

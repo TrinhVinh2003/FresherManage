@@ -1,5 +1,6 @@
-package com.example.test1.Service;
+package com.example.test1.Service.impl;
 
+import com.example.test1.Service.AssigmentService;
 import org.springframework.stereotype.Service;
 
 import com.example.test1.Dto.request.AssignmentRequest;
@@ -15,10 +16,11 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AssignmentService {
+public class IAssignmentService implements AssigmentService {
     private final AssignmentMapper assignmentMapper;
     private final AssignmentRepository assignmentRepository;
     private final FresherRepository fresherRepository;
+
 
     public AssignmentResponse createAssignment(AssignmentRequest assignmentRequest) {
         var fresher = fresherRepository

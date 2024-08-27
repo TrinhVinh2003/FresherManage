@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.CenterRequest;
 import com.example.test1.Dto.response.CenterResponse;
-import com.example.test1.Service.CenterService;
+import com.example.test1.Service.impl.ICenterService;
 import com.example.test1.repository.CenterRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CenterController {
     @Autowired
-    private final CenterService centerService;
+    private final ICenterService centerService;
 
     @Autowired
     private final CenterRepository centerRepository;

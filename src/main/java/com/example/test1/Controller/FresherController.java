@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.FresherRequest;
 import com.example.test1.Dto.response.FresherReponse;
-import com.example.test1.Service.FresherService;
+import com.example.test1.Service.impl.IFresherService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ public class FresherController {
     private static final Logger log = LoggerFactory.getLogger(FresherController.class);
 
     @Autowired
-    private final FresherService fresherService;
+    private final IFresherService fresherService;
 
     @PostMapping
     ApiResponse<FresherReponse> createFresher(@RequestBody FresherRequest fresherRequest) {

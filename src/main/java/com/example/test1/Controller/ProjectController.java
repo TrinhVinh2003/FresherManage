@@ -5,8 +5,7 @@ import com.example.test1.Dto.request.FresherProjectRequest;
 import com.example.test1.Dto.request.ProjectCreateRequest;
 import com.example.test1.Dto.response.FresherProjectReponse;
 import com.example.test1.Dto.response.ProjectResponse;
-import com.example.test1.Service.ProjectService;
-import com.example.test1.repository.ProjectRepository;
+import com.example.test1.Service.impl.IProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectService projectService;
+    private final IProjectService projectService;
 
     @PostMapping
     ApiResponse<ProjectResponse> createProject(@RequestBody ProjectCreateRequest request){

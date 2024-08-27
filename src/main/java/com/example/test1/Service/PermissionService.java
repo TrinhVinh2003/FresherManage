@@ -1,36 +1,14 @@
 package com.example.test1.Service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.test1.Dto.request.PermissionRequest;
 import com.example.test1.Dto.response.PermissionResponse;
-import com.example.test1.Entity.Permission;
-import com.example.test1.Mapper.PermissionMapper;
-import com.example.test1.repository.PermissionRepository;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class PermissionService {
-    private final PermissionRepository permissionRepository;
-    private final PermissionMapper permissionMapper;
+public interface PermissionService {
+    PermissionResponse create(PermissionRequest request);
 
-    public PermissionResponse create(PermissionRequest request) {
-        Permission permission = permissionMapper.toPermission(request);
-        permission = permissionRepository.save(permission);
-        return permissionMapper.toPermissionResponse(permission);
-    }
+    List<PermissionResponse> getAll();
 
-    public List<PermissionResponse> getAll() {
-        return permissionRepository.findAll().stream()
-                .map(permissionMapper::toPermissionResponse)
-                .toList();
-    }
-
-    public void delete(String permission) {
-        permissionRepository.deleteById(permission);
-    }
+    void delete(String permission);
 }

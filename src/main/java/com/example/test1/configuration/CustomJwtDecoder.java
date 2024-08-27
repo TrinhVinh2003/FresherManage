@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
 import com.example.test1.Dto.request.IntrospectRequest;
-import com.example.test1.Service.AuthenticationService;
+import com.example.test1.Service.impl.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 
 @Component

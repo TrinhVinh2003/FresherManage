@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.AssignmentRequest;
 import com.example.test1.Dto.response.AssignmentResponse;
-import com.example.test1.Service.AssignmentService;
+import com.example.test1.Service.impl.IAssignmentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AssignmentController {
     @Autowired
-    private final AssignmentService assignmentService;
+    private final IAssignmentService assignmentService;
 
     @PostMapping
     ApiResponse<AssignmentResponse> createAssignment(@RequestBody AssignmentRequest assignmentRequest) {

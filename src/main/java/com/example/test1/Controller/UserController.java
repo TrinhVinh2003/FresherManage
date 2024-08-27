@@ -12,7 +12,7 @@ import com.example.test1.Dto.request.ApiResponse;
 import com.example.test1.Dto.request.UserCreationRequest;
 import com.example.test1.Dto.request.UserUpdateRequest;
 import com.example.test1.Dto.response.UserResponse;
-import com.example.test1.Service.UserService;
+import com.example.test1.Service.impl.IUserService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    IUserService userService;
 
     @PostMapping
     ApiResponse<UserResponse> createUser(

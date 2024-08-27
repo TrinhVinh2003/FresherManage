@@ -1,41 +1,16 @@
 package com.example.test1.Service;
 
+import com.example.test1.Dto.request.CenterRequest;
+import com.example.test1.Dto.request.UserCreationRequest;
+import com.example.test1.Dto.response.CenterResponse;
+import com.example.test1.Dto.response.UserResponse;
+
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+public interface CenterService {
+    CenterResponse createCenter(CenterRequest request);
 
-import com.example.test1.Dto.request.CenterRequest;
-import com.example.test1.Dto.response.CenterResponse;
-import com.example.test1.Exception.AppException;
-import com.example.test1.Exception.ErrorCode;
-import com.example.test1.Mapper.CenterMapper;
-import com.example.test1.repository.CenterRepository;
-import com.example.test1.repository.FresherRepository;
+    List<CenterResponse> getAll();
 
-import lombok.RequiredArgsConstructor;
-
-@Service
-@RequiredArgsConstructor
-public class CenterService {
-    private final CenterRepository centerRepository;
-    private final CenterMapper centerMapper;
-    private final FresherRepository fresherRepository;
-
-    public CenterResponse createCenter(CenterRequest request) {
-        if (centerRepository.existsByName(request.getName())) throw new AppException(ErrorCode.USER_EXISTED);
-        var center = centerMapper.toCenter(request);
-
-        return centerMapper.toCenterReponse(centerRepository.save(center));
-    }
-
-    public List<CenterResponse> getAll() {
-
-        return centerRepository.findAll().stream()
-                .map(centerMapper::toCenterReponse)
-                .toList();
-    }
-
-    public void delete(String name) {
-        centerRepository.deleteById(name);
-    }
+    void delete(String name);
 }
