@@ -22,3 +22,11 @@ open:
     description: API service
     serverURL: http://localhost:8080
     serverName: server test
+
+mailServer:
+  host: smtp.gmail.com
+  port: 587
+  email: FresherManage@gmail.com
+  password: Vinh534473@gmail.com
+  protocol: smtp
+  isSSL: false

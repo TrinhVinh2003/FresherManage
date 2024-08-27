@@ -23,7 +23,7 @@ public class ICenterService implements CenterService {
     private final FresherRepository fresherRepository;
 
     public CenterResponse createCenter(CenterRequest request) {
-        if (centerRepository.existsByName(request.getName())) throw new AppException(ErrorCode.CENTER_NOT_EXIST);
+        if (centerRepository.existsByName(request.getName())) throw new AppException(ErrorCode.CENTER_EXIST);
         var center = centerMapper.toCenter(request);
 
         return centerMapper.toCenterReponse(centerRepository.save(center));

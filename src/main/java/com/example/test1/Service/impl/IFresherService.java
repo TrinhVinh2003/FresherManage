@@ -1,8 +1,12 @@
 package com.example.test1.Service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.example.test1.Dto.response.ProjectResponse;
+import com.example.test1.Mapper.ProjectMapping;
 import com.example.test1.Service.FresherService;
+import com.example.test1.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.test1.Dto.request.FresherRequest;
@@ -19,8 +23,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class IFresherService implements FresherService{
     private final FresherRepository fresherRepository;
+
     private final FresherMapper fresherMapper;
+
     private final CenterRepository centerRepository;
+
+    private final ProjectRepository projectRepository;
+
+    private final ProjectMapping projectMapping;
 
     public FresherReponse createFresher(FresherRequest fresherRequest) {
 
@@ -38,5 +48,14 @@ public class IFresherService implements FresherService{
         return fresherRepository.findAll().stream()
                 .map(fresherMapper::toFresherReponse)
                 .toList();
+    }
+
+
+    // danh sách project của  fresher
+    public List<ProjectResponse> getProjectsForFresher(Long fresherId) {
+        var projects = projectRepository.findByFreshers_Id(fresherId);
+        return projects.stream()
+                .map(projectMapping::toProjectResponse)
+                .collect(Collectors.toList());
     }
 }

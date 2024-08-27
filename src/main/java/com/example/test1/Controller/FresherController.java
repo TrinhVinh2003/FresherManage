@@ -2,6 +2,7 @@ package com.example.test1.Controller;
 
 import java.util.List;
 
+import com.example.test1.Dto.response.ProjectResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,13 @@ public class FresherController {
                 .result(fresherService.getFreshers())
                 .build();
     }
+
+    @GetMapping("/project/{id}")
+    ApiResponse<List<ProjectResponse>> getProjectByFresher(@PathVariable("id") Long id){
+        var project = fresherService.getProjectsForFresher(id);
+        return ApiResponse.<List<ProjectResponse>>builder()
+                .result(project)
+                .build();
+    }
+
 }

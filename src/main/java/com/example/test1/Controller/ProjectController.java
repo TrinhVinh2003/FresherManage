@@ -7,6 +7,7 @@ import com.example.test1.Dto.response.FresherProjectReponse;
 import com.example.test1.Dto.response.ProjectResponse;
 import com.example.test1.Service.impl.IProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class ProjectController {
                 .build();
     }
 
+    // Thêm fresher vào project
     @PutMapping("/addFresher/{id}")
     ApiResponse<FresherProjectReponse> addFresher(@PathVariable("id") Long id,@RequestBody FresherProjectRequest request){
         var fresherPro  = projectService.addFresherToProject(id,request);
@@ -53,4 +55,11 @@ public class ProjectController {
                 .build();
     }
 
+    @DeleteMapping("/{id}/freshers")
+    public ApiResponse<FresherProjectReponse> removeFreshersFromProject(@PathVariable Long id, @RequestBody FresherProjectRequest fresherProjectRequest) {
+        FresherProjectReponse fresherProjectReponse = projectService.removeFreshersFromProject(id, fresherProjectRequest);
+        return ApiResponse.<FresherProjectReponse>builder()
+                .result(fresherProjectReponse)
+                .build();
+    }
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Email Notification</title>
+</head>
+<body>
+<h2>Notification: Project Update</h2>
+<p>Dear <span th:text="${fresherName}">Fresher</span>,</p>
+<p>You have been <span th:text="${action}">added/removed</span> from the project <strong th:text="${projectName}">Project Name</strong>.</p>
+<p>Project Manager: <strong th:text="${manager}">Manager Name</strong></p>
+<p>Best regards,</p>
+<p>The Project Management Team</p>
+</body>
+</html>

@@ -19,7 +19,9 @@ public enum ErrorCode {
     CENTER_EXIST(1009,"Center existed",HttpStatus.BAD_REQUEST),
     CENTER_NOT_EXIST(1008,"Center not exist",HttpStatus.NOT_FOUND),
     SCORE_OF_FRESHER_EXIST(1009,"Fresher's score exist",HttpStatus.BAD_REQUEST),
-    ASSIGNMENT_NOT_EXIST(1010,"Assigment not exist",HttpStatus.NOT_FOUND);
+    ASSIGNMENT_NOT_EXIST(1010,"Assigment not exist",HttpStatus.NOT_FOUND),
+    FRESHER_NOT_EXIST(1011,"Fresher not exist",HttpStatus.NOT_FOUND),
+    FRESHER_EXIST(1012,"Fresher existed",HttpStatus.BAD_REQUEST);
     private int code;
     private String message;
     private HttpStatus httpStatus;
