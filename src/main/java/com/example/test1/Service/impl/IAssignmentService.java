@@ -25,7 +25,7 @@ public class IAssignmentService implements AssigmentService {
     public AssignmentResponse createAssignment(AssignmentRequest assignmentRequest) {
         var fresher = fresherRepository
                 .findById(assignmentRequest.getFresher_id())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+                .orElseThrow(() -> new AppException(ErrorCode.SCORE_OF_FRESHER_EXIST));
 
         Assignment assignment = Assignment.builder()
                 .score1(assignmentRequest.getScore1())
@@ -35,5 +35,19 @@ public class IAssignmentService implements AssigmentService {
                 .build();
 
         return assignmentMapper.toAssignmentResponse(assignmentRepository.save(assignment));
+    }
+
+    public AssignmentResponse UpdateScore(Long id,AssignmentRequest request){
+        var fresher = fresherRepository
+                .findById(request.getFresher_id())
+                .orElseThrow(() -> new AppException(ErrorCode.SCORE_OF_FRESHER_EXIST));
+        var assignment = assignmentRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ASSIGNMENT_NOT_EXIST));
+
+        assignment.setScore1(request.getScore1());
+        assignment.setScore2(request.getScore2());
+        assignment.setScore3(request.getScore3());
+
+        return assignmentMapper.toAssignmentResponse(assignment);
+
     }
 }

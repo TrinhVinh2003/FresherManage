@@ -19,7 +19,7 @@ public class Assignment {
     private Float score2;
     private Float score3;
 
-    private Float result;
+    private Float result; // average score
 
     @OneToOne
     @JoinColumn(name = "fresher_id", nullable = false, referencedColumnName = "id")

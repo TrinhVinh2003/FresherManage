@@ -31,14 +31,14 @@ public class IProjectService implements ProjectService {
 
         var project = projectMapping.toProject(request);
 
-        var center = centerRepository.findByName(request.getCenter()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+        var center = centerRepository.findByName(request.getCenter()).orElseThrow(() -> new AppException(ErrorCode.CENTER_NOT_EXIST));
         project.setCenter(center);
         projectRepository.save(project);
         return projectMapping.toProjectResponse(project);
     }
 
     public ProjectResponse updateProject(Long id, ProjectCreateRequest request){
-        var project = projectRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+        var project = projectRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PROJECT_NOT_EXIST));
         project.setName(request.getName());
         project.setManager(request.getManager());
         project.setLanguage(request.getLanguage());
@@ -59,7 +59,7 @@ public class IProjectService implements ProjectService {
     }
 
     public FresherProjectReponse addFresherToProject(Long id,FresherProjectRequest fresherProjectRequest){
-        var project = projectRepository.findById(id).orElseThrow(()->new AppException(ErrorCode.USER_NOT_EXIST));
+        var project = projectRepository.findById(id).orElseThrow(()->new AppException(ErrorCode.PROJECT_NOT_EXIST));
         var freshers = fresherRepository.findAllById(fresherProjectRequest.getFresher_id());
 
 

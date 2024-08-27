@@ -29,7 +29,7 @@ public class IFresherService implements FresherService{
         var fresher = fresherMapper.toFresher(fresherRequest);
         var center = centerRepository
                 .findByName(fresherRequest.getCenter())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+                .orElseThrow(() -> new AppException(ErrorCode.CENTER_NOT_EXIST));
         fresher.setCenter(center);
         return fresherMapper.toFresherReponse(fresherRepository.save(fresher));
     }

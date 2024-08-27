@@ -17,8 +17,9 @@ public enum ErrorCode {
     PROJECT_NOT_EXIST(1008,"Project not exist",HttpStatus.NOT_FOUND),
     PROJECT_EXIST(1009,"Project existed",HttpStatus.BAD_REQUEST),
     CENTER_EXIST(1009,"Center existed",HttpStatus.BAD_REQUEST),
-    CENTER_NOT_EXIST(1008,"Center not exist",HttpStatus.NOT_FOUND);
-
+    CENTER_NOT_EXIST(1008,"Center not exist",HttpStatus.NOT_FOUND),
+    SCORE_OF_FRESHER_EXIST(1009,"Fresher's score exist",HttpStatus.BAD_REQUEST),
+    ASSIGNMENT_NOT_EXIST(1010,"Assigment not exist",HttpStatus.NOT_FOUND);
     private int code;
     private String message;
     private HttpStatus httpStatus;
