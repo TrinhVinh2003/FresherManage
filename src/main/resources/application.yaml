@@ -9,6 +9,21 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: apartment.management9@gmail.com
+    password: vnbimwneyawoabnf
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+    from: apartment.management9@gmail.com
+
+
 
 jwt:
     signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
@@ -23,10 +38,6 @@ open:
     serverURL: http://localhost:8080
     serverName: server test
 
-mailServer:
-  host: smtp.gmail.com
-  port: 587
-  email: FresherManage@gmail.com
-  password: Vinh534473@gmail.com
-  protocol: smtp
-  isSSL: false
+# -----------------------
+# Email
+# -----------------------
