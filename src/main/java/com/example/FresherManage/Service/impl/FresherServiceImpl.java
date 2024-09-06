@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.FresherRequest;
 import com.example.FresherManage.Dto.response.FresherReponse;
-import com.example.FresherManage.Exception.AppException;
-import com.example.FresherManage.Exception.ErrorCode;
+import com.example.FresherManage.domain.Exception.AppException;
+import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.Mapper.FresherMapper;
 import com.example.FresherManage.repository.CenterRepository;
 import com.example.FresherManage.repository.FresherRepository;

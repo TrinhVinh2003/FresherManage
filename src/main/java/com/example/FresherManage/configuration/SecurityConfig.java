@@ -1,5 +1,7 @@
 package com.example.FresherManage.configuration;
 
+import com.example.FresherManage.presentation.security.CustomJwtDecoder;
+import com.example.FresherManage.presentation.security.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

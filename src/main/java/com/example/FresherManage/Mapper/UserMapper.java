@@ -7,7 +7,7 @@ import org.mapstruct.MappingTarget;
 import com.example.FresherManage.Dto.request.UserCreationRequest;
 import com.example.FresherManage.Dto.request.UserUpdateRequest;
 import com.example.FresherManage.Dto.response.UserResponse;
-import com.example.FresherManage.Entity.User;
+import com.example.FresherManage.domain.Entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

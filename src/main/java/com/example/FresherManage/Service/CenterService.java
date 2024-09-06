@@ -11,5 +11,5 @@ public interface CenterService {
 
     List<CenterResponse> getAll();
 
-    void delete(String name);
+    void deleteCenter(Long id);
 }

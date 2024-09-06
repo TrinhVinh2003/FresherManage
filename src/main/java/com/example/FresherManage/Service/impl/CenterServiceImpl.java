@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.CenterRequest;
 import com.example.FresherManage.Dto.response.CenterResponse;
-import com.example.FresherManage.Exception.AppException;
-import com.example.FresherManage.Exception.ErrorCode;
+import com.example.FresherManage.domain.Exception.AppException;
+import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.Mapper.CenterMapper;
 import com.example.FresherManage.repository.CenterRepository;
 import com.example.FresherManage.repository.FresherRepository;
@@ -36,7 +36,10 @@ public class CenterServiceImpl implements CenterService {
                 .toList();
     }
 
-    public void delete(String name) {
-        centerRepository.deleteById(name);
+    @Override
+    public void deleteCenter(Long id) {
+        centerRepository.deleteById(id);
     }
+
+
 }

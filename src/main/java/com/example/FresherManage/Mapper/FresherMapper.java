@@ -6,7 +6,7 @@ import org.mapstruct.MappingTarget;
 
 import com.example.FresherManage.Dto.request.FresherRequest;
 import com.example.FresherManage.Dto.response.FresherReponse;
-import com.example.FresherManage.Entity.Fresher;
+import com.example.FresherManage.domain.Entity.Fresher;
 
 @Mapper(componentModel = "spring")
 public interface FresherMapper {

@@ -1,4 +1,4 @@
-package com.example.FresherManage.Exception;
+package com.example.FresherManage.domain.Exception;
 
 public class AppException extends RuntimeException {
 

@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.FresherManage.Constant.PredefinedRole;
-import com.example.FresherManage.Entity.Role;
-import com.example.FresherManage.Entity.User;
+import com.example.FresherManage.domain.Entity.Role;
+import com.example.FresherManage.domain.Entity.User;
 import com.example.FresherManage.repository.RoleRepository;
 import com.example.FresherManage.repository.UserRepository;
 
@@ -24,6 +25,10 @@ public class ApplicationInitConfig {
     private PasswordEncoder passwordEncoder;
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "spring",
+            value = "datasource.driverClassName",
+            havingValue = "com.mysql.cj.jdbc.Driver")
     ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
         return args -> {
             if (userRepository.findByUsername("admin").isEmpty()) {

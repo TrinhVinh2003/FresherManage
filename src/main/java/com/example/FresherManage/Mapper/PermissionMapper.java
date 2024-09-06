@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 
 import com.example.FresherManage.Dto.request.PermissionRequest;
 import com.example.FresherManage.Dto.response.PermissionResponse;
-import com.example.FresherManage.Entity.Permission;
+import com.example.FresherManage.domain.Entity.Permission;
 
 @Mapper(componentModel = "spring")
 public interface PermissionMapper {

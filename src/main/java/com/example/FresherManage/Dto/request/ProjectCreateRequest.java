@@ -1,6 +1,6 @@
 package com.example.FresherManage.Dto.request;
 
-import com.example.FresherManage.Entity.Project;
+import com.example.FresherManage.domain.Entity.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

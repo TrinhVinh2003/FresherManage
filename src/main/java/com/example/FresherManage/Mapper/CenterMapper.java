@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 
 import com.example.FresherManage.Dto.request.CenterRequest;
 import com.example.FresherManage.Dto.response.CenterResponse;
-import com.example.FresherManage.Entity.Center;
+import com.example.FresherManage.domain.Entity.Center;
 
 @Mapper(componentModel = "spring")
 public interface CenterMapper {

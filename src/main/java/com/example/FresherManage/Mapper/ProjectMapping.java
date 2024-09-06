@@ -3,7 +3,7 @@ package com.example.FresherManage.Mapper;
 import com.example.FresherManage.Dto.request.ProjectCreateRequest;
 import com.example.FresherManage.Dto.response.FresherProjectReponse;
 import com.example.FresherManage.Dto.response.ProjectResponse;
-import com.example.FresherManage.Entity.Project;
+import com.example.FresherManage.domain.Entity.Project;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

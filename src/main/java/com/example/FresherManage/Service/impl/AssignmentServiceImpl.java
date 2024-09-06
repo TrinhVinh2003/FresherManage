@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.AssignmentRequest;
 import com.example.FresherManage.Dto.response.AssignmentResponse;
-import com.example.FresherManage.Entity.Assignment;
-import com.example.FresherManage.Exception.AppException;
-import com.example.FresherManage.Exception.ErrorCode;
+import com.example.FresherManage.domain.Entity.Assignment;
+import com.example.FresherManage.domain.Exception.AppException;
+import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.Mapper.AssignmentMapper;
 import com.example.FresherManage.repository.AssignmentRepository;
 import com.example.FresherManage.repository.FresherRepository;
@@ -37,7 +37,7 @@ public class AssignmentServiceImpl implements AssigmentService {
         return assignmentMapper.toAssignmentResponse(assignmentRepository.save(assignment));
     }
 
-    public AssignmentResponse UpdateScore(Long id,AssignmentRequest request){
+    public AssignmentResponse updateScore(Long id,AssignmentRequest request){
         var fresher = fresherRepository
                 .findById(request.getFresher_id())
                 .orElseThrow(() -> new AppException(ErrorCode.SCORE_OF_FRESHER_EXIST));
@@ -49,5 +49,11 @@ public class AssignmentServiceImpl implements AssigmentService {
 
         return assignmentMapper.toAssignmentResponse(assignment);
 
+    }
+
+    public void deleteAssignment(Long id){
+        Assignment assignment = assignmentRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ASSIGNMENT_NOT_EXIST));
+
+        assignmentRepository.deleteById(id);
     }
 }

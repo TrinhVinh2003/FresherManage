@@ -1,11 +1,10 @@
-package com.example.FresherManage.Entity;
+package com.example.FresherManage.domain.Entity;
 
 import jakarta.persistence.*;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

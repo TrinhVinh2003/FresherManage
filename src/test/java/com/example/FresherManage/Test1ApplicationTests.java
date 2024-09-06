@@ -1,4 +1,4 @@
-package com.devteria.identityservice;
+package com.example.FresherManage;
 
 import java.security.NoSuchAlgorithmException;
 

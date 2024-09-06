@@ -1,4 +1,4 @@
-package com.example.FresherManage.configuration;
+package com.example.FresherManage.presentation.security;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import com.example.FresherManage.Dto.request.ApiResponse;
-import com.example.FresherManage.Exception.ErrorCode;
+import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {

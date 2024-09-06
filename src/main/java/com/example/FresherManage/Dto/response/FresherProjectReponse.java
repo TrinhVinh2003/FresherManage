@@ -1,6 +1,6 @@
 package com.example.FresherManage.Dto.response;
 
-import com.example.FresherManage.Entity.Fresher;
+import com.example.FresherManage.domain.Entity.Fresher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

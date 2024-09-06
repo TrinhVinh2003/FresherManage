@@ -38,8 +38,8 @@ public class CenterController {
     }
 
     @DeleteMapping("/{name}")
-    public ApiResponse<Void> deleteCenter(String name) {
-        centerService.delete(name);
+    public ApiResponse<Void> deleteCenter(@PathVariable  Long id) {
+        centerService.deleteCenter(id);
         return ApiResponse.<Void>builder().build();
     }
 }

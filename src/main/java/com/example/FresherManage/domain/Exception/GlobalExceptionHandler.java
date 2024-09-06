@@ -1,4 +1,4 @@
-package com.example.FresherManage.Exception;
+package com.example.FresherManage.domain.Exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

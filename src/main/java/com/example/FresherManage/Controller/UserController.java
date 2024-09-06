@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
     @Autowired
-    UserServiceImpl userService;
+    UserServiceImpl userServiceimp;
 
     @PostMapping
     ApiResponse<UserResponse> createUser(
@@ -35,7 +35,7 @@ public class UserController {
                     UserCreationRequest
                             request) { // @valid validate object dựa theo những cái role mà đc defind trong object đó
         ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.createRequest(request));
+        apiResponse.setResult(userServiceimp.createUser(request));
         return apiResponse;
     }
 
@@ -46,7 +46,7 @@ public class UserController {
         authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
 
         return ApiResponse.<List<UserResponse>>builder()
-                .result(userService.getUsers())
+                .result(userServiceimp.getUsers())
                 .build();
     }
 
@@ -54,7 +54,7 @@ public class UserController {
     ApiResponse<UserResponse> getUser(@PathVariable("userId") String userId) {
 
         return ApiResponse.<UserResponse>builder()
-                .result(userService.getUser(userId))
+                .result(userServiceimp.getUser(userId))
                 .build();
     }
 
@@ -62,14 +62,14 @@ public class UserController {
     ApiResponse<UserResponse> getMyInfo() {
 
         return ApiResponse.<UserResponse>builder()
-                .result(userService.getMyInfo())
+                .result(userServiceimp.getMyInfo())
                 .build();
     }
 
     @PutMapping("/{userId}")
     ApiResponse<UserResponse> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
         return ApiResponse.<UserResponse>builder()
-                .result(userService.updateUser(userId, request))
+                .result(userServiceimp.updateUser(userId, request))
                 .build();
     }
 }

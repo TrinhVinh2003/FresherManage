@@ -1,4 +1,4 @@
-package com.example.FresherManage.Entity;
+package com.example.FresherManage.domain.Entity;
 
 import java.util.Set;
 
@@ -28,4 +28,6 @@ public class Center {
 
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Project> project;
+
+
 }

@@ -1,6 +1,6 @@
 package com.example.FresherManage.repository;
 
-import com.example.FresherManage.Entity.Project;
+import com.example.FresherManage.domain.Entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

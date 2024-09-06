@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import com.example.FresherManage.Dto.request.UserCreationRequest;
 import com.example.FresherManage.Dto.request.UserUpdateRequest;
 import com.example.FresherManage.Dto.response.UserResponse;
-import com.example.FresherManage.Entity.User;
-import com.example.FresherManage.Exception.AppException;
-import com.example.FresherManage.Exception.ErrorCode;
+import com.example.FresherManage.domain.Entity.User;
+import com.example.FresherManage.domain.Exception.AppException;
+import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.Mapper.UserMapper;
 import com.example.FresherManage.repository.RoleRepository;
 import com.example.FresherManage.repository.UserRepository;
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserResponse createRequest(UserCreationRequest request) {
+    public UserResponse createUser(UserCreationRequest request) {
 
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
         User user = userMapper.toUser(request);

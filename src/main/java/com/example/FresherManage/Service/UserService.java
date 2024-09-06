@@ -7,7 +7,7 @@ import com.example.FresherManage.Dto.response.UserResponse;
 import java.util.List;
 
 public interface UserService {
-    UserResponse createRequest(UserCreationRequest request);
+    UserResponse createUser(UserCreationRequest request);
 
     UserResponse updateUser(String userId, UserUpdateRequest request);
 

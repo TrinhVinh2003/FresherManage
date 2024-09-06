@@ -1,7 +1,7 @@
 package com.example.FresherManage.Dto.response;
 
-import com.example.FresherManage.Entity.Center;
-import com.example.FresherManage.Entity.Project;
+import com.example.FresherManage.domain.Entity.Center;
+import com.example.FresherManage.domain.Entity.Project;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;

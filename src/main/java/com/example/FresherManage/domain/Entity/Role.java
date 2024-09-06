@@ -1,7 +1,8 @@
-package com.example.FresherManage.Entity;
+package com.example.FresherManage.domain.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.Set;
+
+import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +14,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Permission {
+public class Role {
     @Id
     String name;
 
     String description;
+
+    @ManyToMany
+    Set<Permission> permissions;
 }

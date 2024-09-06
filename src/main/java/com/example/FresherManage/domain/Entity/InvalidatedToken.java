@@ -1,4 +1,4 @@
-package com.example.FresherManage.Entity;
+package com.example.FresherManage.domain.Entity;
 
 import java.util.Date;
 

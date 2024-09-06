@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 
 import com.example.FresherManage.Dto.request.AssignmentRequest;
 import com.example.FresherManage.Dto.response.AssignmentResponse;
-import com.example.FresherManage.Entity.Assignment;
+import com.example.FresherManage.domain.Entity.Assignment;
 
 @Mapper(componentModel = "spring")
 public interface AssignmentMapper {

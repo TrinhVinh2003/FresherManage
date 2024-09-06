@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 
 import com.example.FresherManage.Dto.request.RoleRequest;
 import com.example.FresherManage.Dto.response.RoleResponse;
-import com.example.FresherManage.Entity.Role;
+import com.example.FresherManage.domain.Entity.Role;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
