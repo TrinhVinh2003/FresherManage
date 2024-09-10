@@ -29,8 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FresherServiceTest {
@@ -87,7 +87,7 @@ public class FresherServiceTest {
         FresherReponse response = fresherService.createFresher(fresherRequest);
 
         Assertions.assertNotNull(response);
-        Assertions.assertEquals(fresherResponse.getEmail(), response.getEmail());
+        assertEquals(fresherResponse.getEmail(), response.getEmail());
     }
 
     @Test
@@ -99,7 +99,32 @@ public class FresherServiceTest {
         List<FresherReponse> responseList = fresherService.getFreshers();
 
         Assertions.assertNotNull(responseList);
-        Assertions.assertEquals(freshers.size(), responseList.size());
+        assertEquals(freshers.size(), responseList.size());
+    }
+
+
+    @Test
+    public void updateFresher_ReturnFresherResponse(){
+        when(fresherRepository.findById(fresher.getId())).thenReturn(Optional.of(fresher));
+        when(centerRepository.findByName(fresherRequest.getCenter())).thenReturn(Optional.of(new Center()));
+        when(fresherMapper.toFresherReponse(fresher)).thenReturn(fresherResponse);
+
+        FresherReponse result = fresherService.updateFresher(fresher.getId(), fresherRequest);
+
+        assertNotNull(result);
+        verify(fresherRepository).save(fresher);
+        verify(fresherRepository).findById(fresher.getId());
+
+    }
+    @Test
+    void testDeleteFresher() {
+        Long fresherId = 1L;
+
+        doNothing().when(fresherRepository).deleteById(fresherId);
+
+        fresherService.deleteFresher(fresherId);
+
+        verify(fresherRepository).deleteById(fresherId);
     }
 
     @Test
@@ -112,7 +137,17 @@ public class FresherServiceTest {
         List<ProjectResponse> responseList = fresherService.getProjectsForFresher(fresherId);
 
         Assertions.assertNotNull(responseList);
-        Assertions.assertEquals(projects.size(), responseList.size());
+        assertEquals(projects.size(), responseList.size());
+    }
+    @Test
+    void testUpdateFresher_NotFound() {
+        Long fresherId = 1L;
+        FresherRequest fresherRequest = new FresherRequest();
+
+        when(fresherRepository.findById(fresherId)).thenReturn(Optional.empty());
+
+        AppException exception = assertThrows(AppException.class, () -> fresherService.updateFresher(fresherId, fresherRequest));
+        assertEquals(ErrorCode.FRESHER_NOT_EXIST, exception.getErrorCode());
     }
 
     @Test
@@ -125,7 +160,7 @@ public class FresherServiceTest {
         List<FresherReponse> responseList = fresherService.findByName(name);
 
         Assertions.assertNotNull(responseList);
-        Assertions.assertEquals(freshers.size(), responseList.size());
+        assertEquals(freshers.size(), responseList.size());
     }
 
     @Test
@@ -138,7 +173,7 @@ public class FresherServiceTest {
         List<FresherReponse> responseList = fresherService.findByEmail(email);
 
         Assertions.assertNotNull(responseList);
-        Assertions.assertEquals(freshers.size(), responseList.size());
+        assertEquals(freshers.size(), responseList.size());
     }
 
     @Test
@@ -151,7 +186,7 @@ public class FresherServiceTest {
         List<FresherReponse> responseList = fresherService.findByProgrammingLanguage(language);
 
         Assertions.assertNotNull(responseList);
-        Assertions.assertEquals(freshers.size(), responseList.size());
+        assertEquals(freshers.size(), responseList.size());
     }
 
     @Test
@@ -162,6 +197,7 @@ public class FresherServiceTest {
             fresherService.createFresher(fresherRequest);
         });
 
-        Assertions.assertEquals(ErrorCode.EMAIL_EXIST, exception.getErrorCode());
+        assertEquals(ErrorCode.EMAIL_EXIST, exception.getErrorCode());
     }
+
 }

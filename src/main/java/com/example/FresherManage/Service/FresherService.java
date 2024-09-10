@@ -11,6 +11,10 @@ public interface FresherService {
 
     List<FresherReponse> getFreshers();
 
+    void deleteFresher(Long id);
+
+    FresherReponse updateFresher(Long id , FresherRequest fresherRequest);
+
     List<ProjectResponse> getProjectsForFresher(Long fresherId);
 
     List<FresherReponse> findByName(String name);

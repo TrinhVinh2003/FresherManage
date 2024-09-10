@@ -37,6 +37,20 @@ public class FresherController {
                 .result(fresherService.getFreshers())
                 .build();
     }
+    @DeleteMapping("/{id}")
+    ApiResponse<Void> deleteFresher(@PathVariable("id") Long id){
+        fresherService.deleteFresher(id);
+
+        return ApiResponse.<Void>builder().build();
+    }
+
+    @PutMapping("/{id}")
+    ApiResponse<FresherReponse> updateFresher(@PathVariable("id") Long id, @RequestBody FresherRequest fresherRequest){
+        var updateFresher = fresherService.updateFresher(id,fresherRequest);
+        return ApiResponse.<FresherReponse>builder()
+                .result(updateFresher)
+                .build();
+    }
 
     @GetMapping("/project/{id}")
     ApiResponse<List<ProjectResponse>> getProjectByFresher(@PathVariable("id") Long id){

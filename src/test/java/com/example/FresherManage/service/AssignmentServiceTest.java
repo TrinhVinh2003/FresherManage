@@ -110,9 +110,11 @@ public class AssignmentServiceTest {
     void updateScore_ValidRequest_ReturnsAssignmentResponse() {
         Long assignmentId = 1L;
 
-        // Giả lập dữ liệu
-        when(fresherRepository.findById(assignmentRequest.getFresher_id())).thenReturn(Optional.of(fresher));
-        when(assignmentRepository.findById(assignmentId)).thenReturn(Optional.of(assignment));
+        // Example of lenient stubbing
+        lenient().when(fresherRepository.findById(assignmentRequest.getFresher_id())).thenReturn(Optional.of(fresher));
+        lenient().when(assignmentRepository.findById(assignmentId)).thenReturn(Optional.of(assignment));
+
+        // Further stubbing as needed
 
         AssignmentResponse assignmentResponse = AssignmentResponse.builder()
                 .score1(assignmentRequest.getScore1())
@@ -123,23 +125,26 @@ public class AssignmentServiceTest {
 
         when(assignmentMapper.toAssignmentResponse(any(Assignment.class))).thenReturn(assignmentResponse);
 
-        // Gọi service
+        // Call the service method
         AssignmentResponse result = assignmentService.updateScore(assignmentId, assignmentRequest);
 
-        // Kiểm tra kết quả
+        // Verify the result
         assertNotNull(result);
         assertEquals(assignmentRequest.getScore1(), result.getScore1());
         assertEquals(assignmentRequest.getScore2(), result.getScore2());
         assertEquals(assignmentRequest.getScore3(), result.getScore3());
         assertEquals(fresher, result.getFresher());
+
+        // Verify that save() was called
+        verify(assignmentRepository, times(1)).save(any(Assignment.class));
     }
+
 
     @Test
     void updateScore_AssignmentNotFound_ThrowsAppException() {
         Long assignmentId = 1L;
 
         // Giả lập assignment không tồn tại
-        when(fresherRepository.findById(assignmentRequest.getFresher_id())).thenReturn(Optional.of(fresher));
         when(assignmentRepository.findById(assignmentId)).thenReturn(Optional.empty());
 
         // Kiểm tra AppException
@@ -149,6 +154,8 @@ public class AssignmentServiceTest {
 
         assertEquals(ErrorCode.ASSIGNMENT_NOT_EXIST, exception.getErrorCode());
     }
+
+
 
     @Test
     void deleteAssignment_ValidId_DeletesAssignment() {

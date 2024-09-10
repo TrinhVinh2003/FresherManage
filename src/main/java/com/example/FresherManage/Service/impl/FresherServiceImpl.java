@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.example.FresherManage.Dto.response.ProjectResponse;
 import com.example.FresherManage.Mapper.ProjectMapping;
 import com.example.FresherManage.Service.FresherService;
+import com.example.FresherManage.domain.Entity.Fresher;
 import com.example.FresherManage.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,25 @@ public class FresherServiceImpl implements FresherService{
                 .toList();
     }
 
+    public void deleteFresher(Long id){
+        fresherRepository.deleteById(id);
+    }
+
+    @Override
+    public FresherReponse updateFresher(Long id, FresherRequest fresherRequest) {
+        Fresher fresher = fresherRepository.findById(id).orElseThrow(() ->new AppException(ErrorCode.FRESHER_NOT_EXIST));
+         fresher.setName(fresherRequest.getName());
+         fresher.setEmail(fresherRequest.getEmail());
+         fresher.setProgrammingLanguage(fresherRequest.getProgrammingLanguage());
+        var center = centerRepository
+                .findByName(fresherRequest.getCenter())
+                .orElseThrow(() -> new AppException(ErrorCode.CENTER_NOT_EXIST));
+        fresher.setCenter(center);
+        fresherRepository.save(fresher);
+
+        return fresherMapper.toFresherReponse(fresher);
+
+    }
 
     // danh sách project của  fresher
     public List<ProjectResponse> getProjectsForFresher(Long fresherId) {

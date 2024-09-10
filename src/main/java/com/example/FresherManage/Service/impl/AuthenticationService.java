@@ -117,7 +117,7 @@ public class AuthenticationService {
     }
 
     // method to verify token
-    private SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException {
+    public SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException {
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
 
         // parse the JWT token to extract its claims
@@ -142,7 +142,7 @@ public class AuthenticationService {
     }
 
     // generate a new token
-    private String generateToken(User username) {
+    public String generateToken(User username) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(username.getUsername())

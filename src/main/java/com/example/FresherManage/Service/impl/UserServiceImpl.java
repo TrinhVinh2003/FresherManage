@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.example.FresherManage.Service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -49,7 +51,8 @@ public class UserServiceImpl implements UserService {
 
     public UserResponse updateUser(String userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        userMapper.updateUser(user, request);
+        user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         var role = roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(role));

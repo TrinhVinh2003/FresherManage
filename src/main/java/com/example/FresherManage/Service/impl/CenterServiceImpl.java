@@ -41,5 +41,18 @@ public class CenterServiceImpl implements CenterService {
         centerRepository.deleteById(id);
     }
 
+    @Override
+    public CenterResponse updateCenter(Long id, CenterRequest centerRequest) {
+        var center = centerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CENTER_NOT_EXIST));
+        center.setName(centerRequest.getName());
+        center.setLocation(centerRequest.getLocation());
+
+        centerRepository.save(center);
+
+        return centerMapper.toCenterReponse(center);
+
+
+    }
+
 
 }

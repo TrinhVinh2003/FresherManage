@@ -20,8 +20,6 @@ public class CenterController {
     @Autowired
     private final CenterServiceImpl centerService;
 
-    @Autowired
-    private final CenterRepository centerRepository;
 
     @PostMapping
     public ApiResponse<CenterResponse> createCenter(@RequestBody CenterRequest centerRequest) {
@@ -37,8 +35,15 @@ public class CenterController {
                 .build();
     }
 
-    @DeleteMapping("/{name}")
-    public ApiResponse<Void> deleteCenter(@PathVariable  Long id) {
+
+    @PutMapping("/{id}")
+    public  ApiResponse<CenterResponse> updateCenter(@PathVariable("id") Long id , @RequestBody CenterRequest request){
+        return ApiResponse.<CenterResponse>builder()
+                .result(centerService.updateCenter(id, request))
+                .build();
+    }
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteCenter(@PathVariable("id")  Long id) {
         centerService.deleteCenter(id);
         return ApiResponse.<Void>builder().build();
     }
