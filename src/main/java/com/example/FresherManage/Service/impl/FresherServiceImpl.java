@@ -8,6 +8,7 @@ import com.example.FresherManage.Mapper.ProjectMapping;
 import com.example.FresherManage.Service.FresherService;
 import com.example.FresherManage.domain.Entity.Fresher;
 import com.example.FresherManage.repository.ProjectRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.FresherRequest;
@@ -34,6 +35,7 @@ public class FresherServiceImpl implements FresherService{
     private final ProjectMapping projectMapping;
 
     // create fresher
+    @PreAuthorize("hasRole('ADMIN')")
     public FresherReponse createFresher(FresherRequest fresherRequest) {
 
         if (fresherRepository.existsByEmail(fresherRequest.getEmail())) throw new AppException(ErrorCode.EMAIL_EXIST);
@@ -47,17 +49,19 @@ public class FresherServiceImpl implements FresherService{
     }
 
     // danh sách các freshers
+    @PreAuthorize("hasRole('ADMIN')")
     public List<FresherReponse> getFreshers() {
         return fresherRepository.findAll().stream()
                 .map(fresherMapper::toFresherReponse)
                 .toList();
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteFresher(Long id){
         fresherRepository.deleteById(id);
     }
 
-    @Override
+
+    @PreAuthorize("hasRole('ADMIN')")
     public FresherReponse updateFresher(Long id, FresherRequest fresherRequest) {
         Fresher fresher = fresherRepository.findById(id).orElseThrow(() ->new AppException(ErrorCode.FRESHER_NOT_EXIST));
          fresher.setName(fresherRequest.getName());
@@ -74,6 +78,7 @@ public class FresherServiceImpl implements FresherService{
     }
 
     // danh sách project của  fresher
+
     public List<ProjectResponse> getProjectsForFresher(Long fresherId) {
         var projects = projectRepository.findByFreshers_Id(fresherId);
         return projects.stream()

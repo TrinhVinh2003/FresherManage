@@ -1,9 +1,5 @@
 package com.example.FresherManage.configuration;
 
-import java.util.List;
-
-import org.springdoc.core.models.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class OpenAPIConfig {
+public class ComponentConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -27,4 +23,8 @@ public class OpenAPIConfig {
             }
         };
     }
+
+    /**
+     * UI: http://localhost:8080/swagger-ui/index.html
+     */
 }

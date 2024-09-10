@@ -1,6 +1,7 @@
     package com.example.FresherManage.Service.impl;
 
     import com.example.FresherManage.Service.AssigmentService;
+    import org.springframework.security.access.prepost.PreAuthorize;
     import org.springframework.stereotype.Service;
 
     import com.example.FresherManage.Dto.request.AssignmentRequest;
@@ -21,7 +22,7 @@
         private final AssignmentRepository assignmentRepository;
         private final FresherRepository fresherRepository;
 
-
+        @PreAuthorize("hasRole('ADMIN')")
         public AssignmentResponse createAssignment(AssignmentRequest assignmentRequest) {
             var fresher = fresherRepository
                     .findById(assignmentRequest.getFresher_id())
@@ -36,7 +37,7 @@
 
             return assignmentMapper.toAssignmentResponse(assignmentRepository.save(assignment));
         }
-
+        @PreAuthorize("hasRole('ADMIN')")
         public AssignmentResponse updateScore(Long id,AssignmentRequest request){
 
             var assignment = assignmentRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ASSIGNMENT_NOT_EXIST));
@@ -49,7 +50,7 @@
             return assignmentMapper.toAssignmentResponse(assignment);
 
         }
-
+        @PreAuthorize("hasRole('ADMIN')")
         public void deleteAssignment(Long id){
             Assignment assignment = assignmentRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ASSIGNMENT_NOT_EXIST));
 
