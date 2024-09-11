@@ -1,5 +1,20 @@
 package com.example.FresherManage.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import com.example.FresherManage.Dto.request.FresherProjectRequest;
 import com.example.FresherManage.Dto.request.ProjectCreateRequest;
 import com.example.FresherManage.Dto.response.FresherProjectReponse;
@@ -10,28 +25,9 @@ import com.example.FresherManage.Service.impl.ProjectServiceImpl;
 import com.example.FresherManage.domain.Entity.Center;
 import com.example.FresherManage.domain.Entity.Fresher;
 import com.example.FresherManage.domain.Entity.Project;
-import com.example.FresherManage.domain.Exception.AppException;
-import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.repository.CenterRepository;
 import com.example.FresherManage.repository.FresherRepository;
 import com.example.FresherManage.repository.ProjectRepository;
-import org.mockito.ArgumentCaptor;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 public class ProjectServiceTest {
 
@@ -99,7 +95,6 @@ public class ProjectServiceTest {
         verify(projectMapping, times(1)).toProjectResponse(project);
     }
 
-
     @Test
     void testUpdateProject() {
         // Arrange
@@ -145,15 +140,16 @@ public class ProjectServiceTest {
         when(centerRepository.findByName(request.getCenter())).thenReturn(Optional.of(updatedCenter));
         when(projectMapping.toProject(request)).thenReturn(updatedProject);
         when(projectRepository.save(any(Project.class))).thenReturn(updatedProject);
-        when(projectMapping.toProjectResponse(updatedProject)).thenReturn(ProjectResponse.builder()
-                .name("Updated Project")
-                .center(updatedCenter)
-                .manager("Updated Manager")
-                .startDate(LocalDate.of(2024, 2, 1))
-                .endDate(LocalDate.of(2024, 11, 30))
-                .language("Python")
-                .status(Project.ProjectStatus.CLOSED)
-                .build());
+        when(projectMapping.toProjectResponse(updatedProject))
+                .thenReturn(ProjectResponse.builder()
+                        .name("Updated Project")
+                        .center(updatedCenter)
+                        .manager("Updated Manager")
+                        .startDate(LocalDate.of(2024, 2, 1))
+                        .endDate(LocalDate.of(2024, 11, 30))
+                        .language("Python")
+                        .status(Project.ProjectStatus.CLOSED)
+                        .build());
 
         // Act
         ProjectResponse response = projectService.updateProject(projectId, request);
@@ -173,9 +169,6 @@ public class ProjectServiceTest {
         verify(projectRepository, times(1)).save(any(Project.class));
         verify(projectMapping, times(1)).toProjectResponse(updatedProject);
     }
-
-
-
 
     @Test
     void testDeleteProject() {
@@ -228,15 +221,21 @@ public class ProjectServiceTest {
         verify(projectRepository, times(1)).findAll();
     }
 
-
-
     @Test
     void testAddFresherToProject() {
         // Arrange
         Long projectId = 1L;
         FresherProjectRequest request = new FresherProjectRequest(List.of(1L, 2L));
-        Fresher fresher1 = Fresher.builder().id(1L).name("Fresher 1").email("fresher1@example.com").build();
-        Fresher fresher2 = Fresher.builder().id(2L).name("Fresher 2").email("fresher2@example.com").build();
+        Fresher fresher1 = Fresher.builder()
+                .id(1L)
+                .name("Fresher 1")
+                .email("fresher1@example.com")
+                .build();
+        Fresher fresher2 = Fresher.builder()
+                .id(2L)
+                .name("Fresher 2")
+                .email("fresher2@example.com")
+                .build();
         Project project = Project.builder()
                 .id(projectId)
                 .name("Project A")
@@ -261,7 +260,8 @@ public class ProjectServiceTest {
         verify(projectRepository, times(1)).findById(projectId);
         verify(fresherRepository, times(1)).findAllById(request.getFresher_id());
         verify(projectRepository, times(1)).save(project);
-        verify(emailService, times(2)).sendProjectUpdateEmail(any(), any(), any(), any(), any()); // Kiểm tra số lượng email gửi
+        verify(emailService, times(2))
+                .sendProjectUpdateEmail(any(), any(), any(), any(), any()); // Kiểm tra số lượng email gửi
         verify(projectMapping, times(1)).toProjectFresher(project);
     }
 
@@ -270,8 +270,16 @@ public class ProjectServiceTest {
         // Arrange
         Long projectId = 1L;
         FresherProjectRequest request = new FresherProjectRequest(List.of(1L, 2L));
-        Fresher fresher1 = Fresher.builder().id(1L).name("Fresher 1").email("fresher1@example.com").build();
-        Fresher fresher2 = Fresher.builder().id(2L).name("Fresher 2").email("fresher2@example.com").build();
+        Fresher fresher1 = Fresher.builder()
+                .id(1L)
+                .name("Fresher 1")
+                .email("fresher1@example.com")
+                .build();
+        Fresher fresher2 = Fresher.builder()
+                .id(2L)
+                .name("Fresher 2")
+                .email("fresher2@example.com")
+                .build();
         Project project = Project.builder()
                 .id(projectId)
                 .name("Project A")
@@ -297,8 +305,8 @@ public class ProjectServiceTest {
         verify(projectRepository, times(1)).findById(projectId);
         verify(fresherRepository, times(1)).findAllById(request.getFresher_id());
         verify(projectRepository, times(1)).save(project);
-        verify(emailService, times(2)).sendProjectUpdateEmail(any(), any(), any(), any(), any()); // Kiểm tra số lượng email gửi
+        verify(emailService, times(2))
+                .sendProjectUpdateEmail(any(), any(), any(), any(), any()); // Kiểm tra số lượng email gửi
         verify(projectMapping, times(1)).toProjectFresher(project);
     }
-
 }

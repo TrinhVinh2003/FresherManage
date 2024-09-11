@@ -1,5 +1,19 @@
 package com.example.FresherManage.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.example.FresherManage.Dto.request.CenterRequest;
 import com.example.FresherManage.Dto.response.CenterResponse;
 import com.example.FresherManage.Mapper.CenterMapper;
@@ -9,20 +23,6 @@ import com.example.FresherManage.domain.Exception.AppException;
 import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.repository.CenterRepository;
 import com.example.FresherManage.repository.FresherRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CenterServiceTest {
@@ -45,16 +45,10 @@ public class CenterServiceTest {
 
     @BeforeEach
     void setUp() {
-        centerRequest = CenterRequest.builder()
-                .name("Center1")
-                .location("Hanoi")
-                .build();
+        centerRequest =
+                CenterRequest.builder().name("Center1").location("Hanoi").build();
 
-        center = Center.builder()
-                .id(1L)
-                .name("Center1")
-                .location("Hanoi")
-                .build();
+        center = Center.builder().id(1L).name("Center1").location("Hanoi").build();
 
         centerResponse = CenterResponse.builder()
                 .name(center.getName())
@@ -96,9 +90,7 @@ public class CenterServiceTest {
     void getAll_ReturnsListOfCenterResponse() {
         // Giả lập repository trả về danh sách các center
         List<Center> centers = Arrays.asList(
-                new Center(1L, "Center1", "Hanoi", null, null),
-                new Center(2L, "Center2", "Danang", null, null)
-        );
+                new Center(1L, "Center1", "Hanoi", null, null), new Center(2L, "Center2", "Danang", null, null));
         when(centerRepository.findAll()).thenReturn(centers);
 
         when(centerMapper.toCenterReponse(any(Center.class))).thenAnswer(invocation -> {
@@ -128,5 +120,4 @@ public class CenterServiceTest {
         // Kiểm tra xem phương thức deleteByName được gọi
         verify(centerRepository, times(1)).deleteById(centerId);
     }
-
 }

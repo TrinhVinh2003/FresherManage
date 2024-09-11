@@ -1,25 +1,26 @@
 package com.example.FresherManage.service;
-import com.example.FresherManage.Dto.request.RoleRequest;
-import com.example.FresherManage.Dto.response.RoleResponse;
-import com.example.FresherManage.domain.Entity.Role;
-import com.example.FresherManage.domain.Entity.Permission;
-import com.example.FresherManage.Mapper.RoleMapper;
-import com.example.FresherManage.repository.PermissionRepository;
-import com.example.FresherManage.repository.RoleRepository;
-import com.example.FresherManage.Service.impl.RoleServiceImpl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import com.example.FresherManage.Dto.request.RoleRequest;
+import com.example.FresherManage.Dto.response.RoleResponse;
+import com.example.FresherManage.Mapper.RoleMapper;
+import com.example.FresherManage.Service.impl.RoleServiceImpl;
+import com.example.FresherManage.domain.Entity.Permission;
+import com.example.FresherManage.domain.Entity.Role;
+import com.example.FresherManage.repository.PermissionRepository;
+import com.example.FresherManage.repository.RoleRepository;
 
 public class RoleServiceTest {
 
@@ -61,10 +62,8 @@ public class RoleServiceTest {
                 .permissions(Set.of())
                 .build();
 
-        Permission readPermission = Permission.builder()
-                .name("READ")
-                .description("Read permission")
-                .build();
+        Permission readPermission =
+                Permission.builder().name("READ").description("Read permission").build();
 
         Permission writePermission = Permission.builder()
                 .name("WRITE")
@@ -83,7 +82,7 @@ public class RoleServiceTest {
         // Assert
         assertEquals("ADMIN", result.getName());
         assertEquals("Administrator role", result.getDescription());
-        assertEquals(Set.of(), result.getPermissions());  // Assuming permissions are transformed correctly
+        assertEquals(Set.of(), result.getPermissions()); // Assuming permissions are transformed correctly
         verify(roleMapper, times(1)).toRole(roleRequest);
         verify(permissionRepository, times(1)).findAllById(roleRequest.getPermissions());
         verify(roleRepository, times(1)).save(role);

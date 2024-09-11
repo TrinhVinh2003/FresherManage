@@ -2,14 +2,14 @@ package com.example.FresherManage.Service.impl;
 
 import java.util.List;
 
-import com.example.FresherManage.Service.CenterService;
 import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.CenterRequest;
 import com.example.FresherManage.Dto.response.CenterResponse;
+import com.example.FresherManage.Mapper.CenterMapper;
+import com.example.FresherManage.Service.CenterService;
 import com.example.FresherManage.domain.Exception.AppException;
 import com.example.FresherManage.domain.Exception.ErrorCode;
-import com.example.FresherManage.Mapper.CenterMapper;
 import com.example.FresherManage.repository.CenterRepository;
 import com.example.FresherManage.repository.FresherRepository;
 
@@ -42,7 +42,6 @@ public class CenterServiceImpl implements CenterService {
     }
 
     @Override
-
     public CenterResponse updateCenter(Long id, CenterRequest centerRequest) {
         var center = centerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CENTER_NOT_EXIST));
         center.setName(centerRequest.getName());
@@ -51,9 +50,5 @@ public class CenterServiceImpl implements CenterService {
         centerRepository.save(center);
 
         return centerMapper.toCenterReponse(center);
-
-
     }
-
-
 }

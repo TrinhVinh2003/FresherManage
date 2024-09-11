@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.FresherManage.Dto.request.ApiResponse;
 import com.example.FresherManage.Dto.request.UserCreationRequest;
 import com.example.FresherManage.Dto.request.UserUpdateRequest;
+import com.example.FresherManage.Dto.response.UserDetailResponse;
 import com.example.FresherManage.Dto.response.UserResponse;
 import com.example.FresherManage.Service.impl.UserServiceImpl;
 
@@ -59,9 +60,9 @@ public class UserController {
     }
 
     @GetMapping("/myInfo")
-    ApiResponse<UserResponse> getMyInfo() {
+    ApiResponse<UserDetailResponse> getMyInfo() {
 
-        return ApiResponse.<UserResponse>builder()
+        return ApiResponse.<UserDetailResponse>builder()
                 .result(userServiceimp.getMyInfo())
                 .build();
     }

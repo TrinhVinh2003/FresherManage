@@ -1,10 +1,11 @@
 package com.example.FresherManage.Service;
 
+import java.util.List;
+
 import com.example.FresherManage.Dto.request.UserCreationRequest;
 import com.example.FresherManage.Dto.request.UserUpdateRequest;
+import com.example.FresherManage.Dto.response.UserDetailResponse;
 import com.example.FresherManage.Dto.response.UserResponse;
-
-import java.util.List;
 
 public interface UserService {
     UserResponse createUser(UserCreationRequest request);
@@ -17,5 +18,5 @@ public interface UserService {
 
     List<UserResponse> getUsers();
 
-    UserResponse getMyInfo();
+    UserDetailResponse getMyInfo();
 }

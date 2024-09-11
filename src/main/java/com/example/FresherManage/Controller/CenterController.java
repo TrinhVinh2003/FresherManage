@@ -9,7 +9,6 @@ import com.example.FresherManage.Dto.request.ApiResponse;
 import com.example.FresherManage.Dto.request.CenterRequest;
 import com.example.FresherManage.Dto.response.CenterResponse;
 import com.example.FresherManage.Service.impl.CenterServiceImpl;
-import com.example.FresherManage.repository.CenterRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 public class CenterController {
     @Autowired
     private final CenterServiceImpl centerService;
-
 
     @PostMapping
     public ApiResponse<CenterResponse> createCenter(@RequestBody CenterRequest centerRequest) {
@@ -35,15 +33,15 @@ public class CenterController {
                 .build();
     }
 
-
     @PutMapping("/{id}")
-    public  ApiResponse<CenterResponse> updateCenter(@PathVariable("id") Long id , @RequestBody CenterRequest request){
+    public ApiResponse<CenterResponse> updateCenter(@PathVariable("id") Long id, @RequestBody CenterRequest request) {
         return ApiResponse.<CenterResponse>builder()
                 .result(centerService.updateCenter(id, request))
                 .build();
     }
+
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteCenter(@PathVariable("id")  Long id) {
+    public ApiResponse<Void> deleteCenter(@PathVariable("id") Long id) {
         centerService.deleteCenter(id);
         return ApiResponse.<Void>builder().build();
     }

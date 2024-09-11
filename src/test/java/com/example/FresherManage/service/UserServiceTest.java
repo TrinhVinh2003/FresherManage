@@ -1,32 +1,41 @@
 package com.example.FresherManage.service;
 
-import com.example.FresherManage.Dto.request.UserCreationRequest;
-import com.example.FresherManage.Dto.request.UserUpdateRequest;
-import com.example.FresherManage.Dto.response.UserResponse;
-import com.example.FresherManage.domain.Entity.Role;
-import com.example.FresherManage.domain.Entity.User;
-import com.example.FresherManage.domain.Exception.AppException;
-import com.example.FresherManage.domain.Exception.ErrorCode;
-import com.example.FresherManage.repository.RoleRepository;
-import com.example.FresherManage.repository.UserRepository;
-import com.example.FresherManage.Service.impl.UserServiceImpl;
-import com.example.FresherManage.Mapper.UserMapper;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.Authentication;
 
-import java.util.*;
+import com.example.FresherManage.Constant.PredefinedRole;
+import com.example.FresherManage.Dto.request.UserCreationRequest;
+import com.example.FresherManage.Dto.request.UserUpdateRequest;
+import com.example.FresherManage.Dto.response.UserDetailResponse;
+import com.example.FresherManage.Dto.response.UserResponse;
+import com.example.FresherManage.Mapper.UserMapper;
+import com.example.FresherManage.Service.impl.UserServiceImpl;
+import com.example.FresherManage.domain.Entity.Fresher;
+import com.example.FresherManage.domain.Entity.Role;
+import com.example.FresherManage.domain.Entity.User;
+import com.example.FresherManage.domain.Exception.AppException;
+import com.example.FresherManage.domain.Exception.ErrorCode;
+import com.example.FresherManage.repository.FresherRepository;
+import com.example.FresherManage.repository.RoleRepository;
+import com.example.FresherManage.repository.UserRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-
+@DataJpaTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class UserServiceTest {
 
     @InjectMocks
@@ -34,6 +43,9 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private FresherRepository fresherRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -61,20 +73,24 @@ public class UserServiceTest {
         UserCreationRequest request = UserCreationRequest.builder()
                 .username("john_doe")
                 .password("password")
+                .email("john@example.com")
                 .build();
 
         User user = User.builder()
                 .username("john_doe")
                 .password("encoded_password")
+                .email("john@example.com")
                 .build();
 
-        UserResponse response = UserResponse.builder()
-                .username("john_doe")
-                .build();
+        Role userRole = new Role(PredefinedRole.USER_ROLE, "Default user role", new HashSet<>());
 
+        UserResponse response = UserResponse.builder().username("john_doe").build();
+
+        // Mock behavior
         when(userRepository.existsByUsername(request.getUsername())).thenReturn(false);
         when(userMapper.toUser(request)).thenReturn(user);
         when(passwordEncoder.encode(request.getPassword())).thenReturn("encoded_password");
+        when(roleRepository.findById(PredefinedRole.USER_ROLE)).thenReturn(Optional.of(userRole));
         when(userRepository.save(user)).thenReturn(user);
         when(userMapper.toUserResponse(user)).thenReturn(response);
 
@@ -82,10 +98,14 @@ public class UserServiceTest {
         UserResponse result = userService.createUser(request);
 
         // Assert
+        assertNotNull(result);
         assertEquals("john_doe", result.getUsername());
-        verify(userRepository, times(1)).existsByUsername(request.getUsername());
+
+        // Verify interactions with mocks
+
         verify(userMapper, times(1)).toUser(request);
         verify(passwordEncoder, times(1)).encode(request.getPassword());
+        verify(roleRepository, times(1)).findById(PredefinedRole.USER_ROLE);
         verify(userRepository, times(1)).save(user);
         verify(userMapper, times(1)).toUserResponse(user);
     }
@@ -104,6 +124,7 @@ public class UserServiceTest {
                 .id(userId)
                 .username("Moi")
                 .password("old_password")
+                .email("old_email@example.com")
                 .roles(new HashSet<>())
                 .build();
 
@@ -111,14 +132,12 @@ public class UserServiceTest {
                 .id(userId)
                 .username("Vinh")
                 .password("encoded_new_password")
+                .email("new_email@example.com")
                 .roles(new HashSet<>())
                 .build();
 
-        UserResponse response = UserResponse.builder()
-                .username("vinh")
-                .build();
+        UserResponse response = UserResponse.builder().username("vinh").build();
 
-        // Mock các đối tượng và phương thức
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(passwordEncoder.encode(request.getPassword())).thenReturn("encoded_new_password");
         when(roleRepository.findAllById(request.getRoles())).thenReturn(new ArrayList<>());
@@ -140,17 +159,16 @@ public class UserServiceTest {
     @Test
     void testUpdateUser_UserNotFound() {
         // Arrange
-        String userId = "999"; // Không tồn tại
+        String userId = "999"; // Non-existent user ID
         UserUpdateRequest request = UserUpdateRequest.builder()
                 .username("john_doe_updated")
                 .password("new_password")
                 .roles(List.of("ROLE_USER"))
                 .build();
 
-        // Mock việc user không tồn tại
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        // Assert và Act
+        // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             userService.updateUser(userId, request);
         });
@@ -159,7 +177,6 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findById(userId);
         verify(userRepository, never()).save(any(User.class));
     }
-
 
     @Test
     void testDeleteUser() {
@@ -177,14 +194,9 @@ public class UserServiceTest {
     void testGetUser() {
         // Arrange
         String userId = "1";
-        User user = User.builder()
-                .id(userId)
-                .username("john_doe")
-                .build();
+        User user = User.builder().id(userId).username("john_doe").build();
 
-        UserResponse response = UserResponse.builder()
-                .username("john_doe")
-                .build();
+        UserResponse response = UserResponse.builder().username("john_doe").build();
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(userMapper.toUserResponse(user)).thenReturn(response);
@@ -202,23 +214,29 @@ public class UserServiceTest {
     void testGetMyInfo_Success() {
         // Arrange
         String username = "john_doe";
-        User user = User.builder().username(username).build();
-        UserResponse userResponse = UserResponse.builder().username(username).build();
+        String email = "john@example.com";
+        User user = User.builder().username(username).email(email).build();
+        UserDetailResponse userDetailResponse =
+                UserDetailResponse.builder().username(username).build();
+        Fresher fresher = Fresher.builder().email(email).build();
 
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn(username);
         SecurityContextHolder.setContext(securityContext);
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
-        when(userMapper.toUserResponse(user)).thenReturn(userResponse);
+        when(userMapper.toUserDetailResponse(user)).thenReturn(userDetailResponse);
+        when(fresherRepository.findByEmail(email)).thenReturn(fresher);
 
         // Act
-        UserResponse result = userService.getMyInfo();
+        UserDetailResponse result = userService.getMyInfo();
 
         // Assert
         assertEquals(username, result.getUsername());
+        assertEquals(fresher, result.getFresher());
         verify(userRepository, times(1)).findByUsername(username);
-        verify(userMapper, times(1)).toUserResponse(user);
+        verify(userMapper, times(1)).toUserDetailResponse(user);
+        verify(fresherRepository, times(1)).findByEmail(email);
     }
 
     @Test
@@ -237,6 +255,7 @@ public class UserServiceTest {
         assertEquals(ErrorCode.USER_NOT_EXIST, exception.getErrorCode());
 
         verify(userRepository, times(1)).findByUsername(username);
-        verify(userMapper, never()).toUserResponse(any());
+        verify(userMapper, never()).toUserDetailResponse(any());
+        verify(fresherRepository, never()).findByEmail(any());
     }
 }

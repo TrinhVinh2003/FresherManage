@@ -1,12 +1,13 @@
 package com.example.FresherManage.Dto.response;
 
+import java.util.Set;
+
 import com.example.FresherManage.domain.Entity.Fresher;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -15,5 +16,4 @@ import java.util.Set;
 public class FresherProjectReponse {
     private String name;
     private Set<Fresher> freshers;
-
 }

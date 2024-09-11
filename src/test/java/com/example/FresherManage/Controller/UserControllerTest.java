@@ -1,11 +1,7 @@
 package com.example.FresherManage.Controller;
 
-import com.example.FresherManage.Dto.request.UserCreationRequest;
-import com.example.FresherManage.Dto.response.UserResponse;
-import com.example.FresherManage.Service.UserService;
-import com.example.FresherManage.Service.impl.UserServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -20,8 +16,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDate;
-
+import com.example.FresherManage.Dto.request.UserCreationRequest;
+import com.example.FresherManage.Dto.response.UserResponse;
+import com.example.FresherManage.Service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @SpringBootTest
 @TestPropertySource("/test.properties")
@@ -70,7 +69,6 @@ class UserControllerTest {
                         .content(content))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("code").value(1000));
-
     }
 
     @Test

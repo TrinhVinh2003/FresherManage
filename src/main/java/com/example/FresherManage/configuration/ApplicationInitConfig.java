@@ -2,6 +2,7 @@ package com.example.FresherManage.configuration;
 
 import java.util.HashSet;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.example.FresherManage.repository.RoleRepository;
 import com.example.FresherManage.repository.UserRepository;
 
 @Configuration
+@RequiredArgsConstructor
 public class ApplicationInitConfig {
     private static final Logger log = LoggerFactory.getLogger(ApplicationInitConfig.class);
 

@@ -1,14 +1,14 @@
 package com.example.FresherManage.Controller;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-import com.example.FresherManage.Dto.request.AssignmentRequest;
-import com.example.FresherManage.Dto.response.AssignmentResponse;
-import com.example.FresherManage.Service.impl.AssignmentServiceImpl;
-import com.example.FresherManage.domain.Entity.Fresher;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,12 +18,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import com.example.FresherManage.Dto.request.AssignmentRequest;
+import com.example.FresherManage.Dto.response.AssignmentResponse;
+import com.example.FresherManage.Service.impl.AssignmentServiceImpl;
+import com.example.FresherManage.domain.Entity.Fresher;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = AssignmentController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 public class AssignmentControllerTest {
 
     @Autowired
@@ -47,10 +50,7 @@ public class AssignmentControllerTest {
                 .fresher_id(1L)
                 .build();
 
-        Fresher fresher = Fresher.builder()
-                .id(1L)
-                .name("John Doe")
-                .build();
+        Fresher fresher = Fresher.builder().id(1L).name("John Doe").build();
 
         assignmentResponse = AssignmentResponse.builder()
                 .score1(8.5f)
@@ -74,8 +74,10 @@ public class AssignmentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.score2").value(assignmentRequest.getScore2()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.score3").value(assignmentRequest.getScore3()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.result").value(assignmentResponse.getResult()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.id").value(assignmentResponse.getFresher().getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.name").value(assignmentResponse.getFresher().getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.id")
+                        .value(assignmentResponse.getFresher().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.name")
+                        .value(assignmentResponse.getFresher().getName()));
     }
 
     @Test
@@ -93,8 +95,10 @@ public class AssignmentControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.score2").value(assignmentRequest.getScore2()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.score3").value(assignmentRequest.getScore3()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result.result").value(assignmentResponse.getResult()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.id").value(assignmentResponse.getFresher().getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.name").value(assignmentResponse.getFresher().getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.id")
+                        .value(assignmentResponse.getFresher().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result.fresher.name")
+                        .value(assignmentResponse.getFresher().getName()));
     }
 
     @Test
@@ -102,8 +106,8 @@ public class AssignmentControllerTest {
         Long assignmentId = 1L;
         doNothing().when(assignmentService).deleteAssignment(assignmentId);
 
-        ResultActions response = mockMvc.perform(delete("/assignment/{id}", assignmentId)
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response =
+                mockMvc.perform(delete("/assignment/{id}", assignmentId).contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }

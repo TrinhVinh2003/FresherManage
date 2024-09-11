@@ -1,9 +1,11 @@
 package com.example.FresherManage.service;
 
-import com.example.FresherManage.Dto.response.FresherScoreCountReponse;
-import com.example.FresherManage.Service.impl.DashboardServiceImpl;
-import com.example.FresherManage.repository.AssignmentRepository;
-import com.example.FresherManage.repository.FresherRepository;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,11 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import com.example.FresherManage.Dto.response.FresherScoreCountReponse;
+import com.example.FresherManage.Service.impl.DashboardServiceImpl;
+import com.example.FresherManage.repository.AssignmentRepository;
+import com.example.FresherManage.repository.FresherRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class DashBoardServiceTest {
@@ -37,10 +38,7 @@ public class DashBoardServiceTest {
     @Test
     void countFreshersByCenter_ReturnsCorrectData() {
         // Prepare test data
-        List<Object[]> result = List.of(
-                new Object[]{"Center1", 10L},
-                new Object[]{"Center2", 20L}
-        );
+        List<Object[]> result = List.of(new Object[] {"Center1", 10L}, new Object[] {"Center2", 20L});
 
         // Mock repository method
         when(fresherRepository.countFreshersByCenter()).thenReturn(result);
@@ -58,22 +56,10 @@ public class DashBoardServiceTest {
     @Test
     void getScoreStatistics_ReturnsCorrectData() {
         // Prepare test data
-        List<Object[]> score1Counts = List.of(
-                new Object[]{1.0f, 5L},
-                new Object[]{4.0f, 10L}
-        );
-        List<Object[]> score2Counts = List.of(
-                new Object[]{2.0f, 8L},
-                new Object[]{5.0f, 12L}
-        );
-        List<Object[]> score3Counts = List.of(
-                new Object[]{3.0f, 7L},
-                new Object[]{6.0f, 15L}
-        );
-        List<Object[]> averageCounts = List.of(
-                new Object[]{2.5f, 6L},
-                new Object[]{5.5f, 14L}
-        );
+        List<Object[]> score1Counts = List.of(new Object[] {1.0f, 5L}, new Object[] {4.0f, 10L});
+        List<Object[]> score2Counts = List.of(new Object[] {2.0f, 8L}, new Object[] {5.0f, 12L});
+        List<Object[]> score3Counts = List.of(new Object[] {3.0f, 7L}, new Object[] {6.0f, 15L});
+        List<Object[]> averageCounts = List.of(new Object[] {2.5f, 6L}, new Object[] {5.5f, 14L});
 
         // Mock repository methods
         when(assignmentRepository.countByScore1()).thenReturn(score1Counts);
@@ -105,4 +91,3 @@ public class DashBoardServiceTest {
         assertEquals(Map.of("1-3", 6, "4-6", 14, "7-10", 0, "Unknown", 0), averageResponse.getScoreRangeCounts());
     }
 }
-

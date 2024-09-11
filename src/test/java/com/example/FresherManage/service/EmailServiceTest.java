@@ -1,7 +1,12 @@
 package com.example.FresherManage.service;
-import com.example.FresherManage.Service.impl.EmailService;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,9 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import com.example.FresherManage.Service.impl.EmailService;
 
 class EmailServiceTest {
 
@@ -56,7 +59,5 @@ class EmailServiceTest {
         verify(templateEngine, times(1)).process(anyString(), any(Context.class));
         verify(mailSender, times(1)).createMimeMessage();
         verify(mailSender, times(1)).send(mimeMessage);
-
-
     }
 }

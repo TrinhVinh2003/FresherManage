@@ -2,13 +2,13 @@ package com.example.FresherManage.Service.impl;
 
 import java.util.List;
 
-import com.example.FresherManage.Service.PermissionService;
 import org.springframework.stereotype.Service;
 
 import com.example.FresherManage.Dto.request.PermissionRequest;
 import com.example.FresherManage.Dto.response.PermissionResponse;
-import com.example.FresherManage.domain.Entity.Permission;
 import com.example.FresherManage.Mapper.PermissionMapper;
+import com.example.FresherManage.Service.PermissionService;
+import com.example.FresherManage.domain.Entity.Permission;
 import com.example.FresherManage.repository.PermissionRepository;
 
 import lombok.RequiredArgsConstructor;

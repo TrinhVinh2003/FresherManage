@@ -142,6 +142,7 @@ public class AuthenticationService {
     }
 
     // generate a new token
+
     public String generateToken(User username) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()

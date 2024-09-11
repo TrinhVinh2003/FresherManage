@@ -1,11 +1,12 @@
 package com.example.FresherManage.Dto.request;
 
-import com.example.FresherManage.domain.Entity.Project;
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDate;
 
+import jakarta.persistence.*;
+
+import com.example.FresherManage.domain.Entity.Project;
+
+import lombok.*;
 
 @Getter
 @Setter

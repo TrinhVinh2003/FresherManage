@@ -1,8 +1,8 @@
 package com.example.FresherManage.Service;
 
-import com.example.FresherManage.Dto.response.FresherScoreCountReponse;
-
 import java.util.List;
+
+import com.example.FresherManage.Dto.response.FresherScoreCountReponse;
 
 public interface DashboardService {
     List<FresherScoreCountReponse> evaluateScores();

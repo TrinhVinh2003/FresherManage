@@ -1,14 +1,15 @@
 package com.example.FresherManage.Controller;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.FresherManage.Dto.request.FresherRequest;
-import com.example.FresherManage.Dto.response.FresherReponse;
-import com.example.FresherManage.Mapper.FresherMapper;
-import com.example.FresherManage.Service.FresherService;
-import com.example.FresherManage.Service.impl.FresherServiceImpl;
-import com.example.FresherManage.domain.Entity.Center;
-import com.example.FresherManage.domain.Entity.Fresher;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,15 +24,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.example.FresherManage.Dto.request.FresherRequest;
+import com.example.FresherManage.Dto.response.FresherReponse;
+import com.example.FresherManage.Mapper.FresherMapper;
+import com.example.FresherManage.Service.impl.FresherServiceImpl;
+import com.example.FresherManage.domain.Entity.Center;
+import com.example.FresherManage.domain.Entity.Fresher;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = FresherController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -53,20 +52,25 @@ public class FresherControllerTest {
     private FresherReponse fresherResponse;
     private FresherMapper fresherMapper;
 
-
     @BeforeEach
-    public void init(){
-        fresherRequest = FresherRequest.builder().name("vinh").email("vinh534473@gmail.com").programmingLanguage("Java").build();
-        fresherResponse = FresherReponse.builder().name("vinh").email("vinh534473@gmail.com").programmingLanguage("Java").build();
-
-
+    public void init() {
+        fresherRequest = FresherRequest.builder()
+                .name("vinh")
+                .email("vinh534473@gmail.com")
+                .programmingLanguage("Java")
+                .build();
+        fresherResponse = FresherReponse.builder()
+                .name("vinh")
+                .email("vinh534473@gmail.com")
+                .programmingLanguage("Java")
+                .build();
     }
 
     @Test
     public void FresherController_CreateFresher_ReturnCreated() throws Exception {
 
-        given(fresherService.createFresher(ArgumentMatchers.any(FresherRequest.class))).willReturn(fresherResponse);
-
+        given(fresherService.createFresher(ArgumentMatchers.any(FresherRequest.class)))
+                .willReturn(fresherResponse);
 
         ResultActions response = mockMvc.perform(post("/fresher")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,24 +82,18 @@ public class FresherControllerTest {
                 .andExpect(jsonPath("$.result.email").value(fresherResponse.getEmail()));
     }
 
-
     @Test
     public void FresherController_GetAllFresher_ReturnFresherList() throws Exception {
         List<FresherReponse> fresherReponseList = Arrays.asList(fresherResponse);
         when(fresherService.getFreshers()).thenReturn(fresherReponseList);
 
-
         //
-        ResultActions reponse =  mockMvc.perform(get("/fresher")
-                .contentType(MediaType.APPLICATION_JSON));
-
+        ResultActions reponse = mockMvc.perform(get("/fresher").contentType(MediaType.APPLICATION_JSON));
 
         reponse.andExpect(status().isOk())
                 .andExpect(jsonPath("$.result.size()").value(fresherReponseList.size()))
                 .andExpect(jsonPath("$.result[0].name").value(fresherResponse.getName()))
                 .andExpect(jsonPath("$.result[0].email").value(fresherResponse.getEmail()));
-
-
     }
 
     @Test
@@ -118,12 +116,9 @@ public class FresherControllerTest {
         Long fresherId = 1L;
         doNothing().when(fresherService).deleteFresher(fresherId);
 
-        ResultActions response = mockMvc.perform(delete("/fresher/{id}", fresherId)
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response =
+                mockMvc.perform(delete("/fresher/{id}", fresherId).contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
-
-
-
 }

@@ -3,6 +3,8 @@ package com.example.FresherManage.Dto.response;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.example.FresherManage.domain.Entity.Fresher;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,10 +13,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
+public class UserDetailResponse {
     String id;
     String username;
-    String email;
     LocalDate dob;
     Set<RoleResponse> roles;
+    Fresher fresher;
 }

@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/managefresher
+    driverClassName: "com.mysql.cj.jdbc.Driver"
     username: vinh
     password: 534473
 

@@ -1,15 +1,13 @@
 package com.example.FresherManage.Dto.response;
 
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
 public class FresherScoreCountReponse {
     private String scoretype;
-    private Map<String,Integer> scoreRangeCounts;
-
+    private Map<String, Integer> scoreRangeCounts;
 }

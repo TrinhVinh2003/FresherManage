@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 
 import com.example.FresherManage.Dto.request.UserCreationRequest;
 import com.example.FresherManage.Dto.request.UserUpdateRequest;
+import com.example.FresherManage.Dto.response.UserDetailResponse;
 import com.example.FresherManage.Dto.response.UserResponse;
 import com.example.FresherManage.domain.Entity.User;
 
@@ -14,6 +15,8 @@ public interface UserMapper {
     User toUser(UserCreationRequest request);
     //    @Mapping(source = "",target = "")
     UserResponse toUserResponse(User user);
+
+    UserDetailResponse toUserDetailResponse(User user);
 
     @Mapping(target = "roles", ignore = true)
     void updateUser(@MappingTarget User user, UserUpdateRequest request);

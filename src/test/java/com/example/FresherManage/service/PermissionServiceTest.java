@@ -1,21 +1,22 @@
 package com.example.FresherManage.service;
-import com.example.FresherManage.Dto.request.PermissionRequest;
-import com.example.FresherManage.Dto.response.PermissionResponse;
-import com.example.FresherManage.domain.Entity.Permission;
-import com.example.FresherManage.Mapper.PermissionMapper;
-import com.example.FresherManage.repository.PermissionRepository;
-import com.example.FresherManage.Service.impl.PermissionServiceImpl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import com.example.FresherManage.Dto.request.PermissionRequest;
+import com.example.FresherManage.Dto.response.PermissionResponse;
+import com.example.FresherManage.Mapper.PermissionMapper;
+import com.example.FresherManage.Service.impl.PermissionServiceImpl;
+import com.example.FresherManage.domain.Entity.Permission;
+import com.example.FresherManage.repository.PermissionRepository;
 
 public class PermissionServiceTest {
 
@@ -41,10 +42,8 @@ public class PermissionServiceTest {
                 .description("Read permission")
                 .build();
 
-        Permission permission = Permission.builder()
-                .name("READ")
-                .description("Read permission")
-                .build();
+        Permission permission =
+                Permission.builder().name("READ").description("Read permission").build();
 
         PermissionResponse response = PermissionResponse.builder()
                 .name("READ")
@@ -69,10 +68,8 @@ public class PermissionServiceTest {
     @Test
     void testGetAllPermissions() {
         // Arrange
-        Permission permission1 = Permission.builder()
-                .name("READ")
-                .description("Read permission")
-                .build();
+        Permission permission1 =
+                Permission.builder().name("READ").description("Read permission").build();
 
         Permission permission2 = Permission.builder()
                 .name("WRITE")
@@ -119,4 +116,3 @@ public class PermissionServiceTest {
         verify(permissionRepository, times(1)).deleteById(permissionName);
     }
 }
-

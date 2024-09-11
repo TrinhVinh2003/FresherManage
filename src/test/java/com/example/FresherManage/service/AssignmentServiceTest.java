@@ -1,5 +1,20 @@
 package com.example.FresherManage.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.example.FresherManage.Dto.request.AssignmentRequest;
 import com.example.FresherManage.Dto.response.AssignmentResponse;
 import com.example.FresherManage.Mapper.AssignmentMapper;
@@ -10,20 +25,6 @@ import com.example.FresherManage.domain.Exception.AppException;
 import com.example.FresherManage.domain.Exception.ErrorCode;
 import com.example.FresherManage.repository.AssignmentRepository;
 import com.example.FresherManage.repository.FresherRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AssignmentServiceTest {
@@ -111,7 +112,9 @@ public class AssignmentServiceTest {
         Long assignmentId = 1L;
 
         // Example of lenient stubbing
-        lenient().when(fresherRepository.findById(assignmentRequest.getFresher_id())).thenReturn(Optional.of(fresher));
+        lenient()
+                .when(fresherRepository.findById(assignmentRequest.getFresher_id()))
+                .thenReturn(Optional.of(fresher));
         lenient().when(assignmentRepository.findById(assignmentId)).thenReturn(Optional.of(assignment));
 
         // Further stubbing as needed
@@ -139,7 +142,6 @@ public class AssignmentServiceTest {
         verify(assignmentRepository, times(1)).save(any(Assignment.class));
     }
 
-
     @Test
     void updateScore_AssignmentNotFound_ThrowsAppException() {
         Long assignmentId = 1L;
@@ -154,8 +156,6 @@ public class AssignmentServiceTest {
 
         assertEquals(ErrorCode.ASSIGNMENT_NOT_EXIST, exception.getErrorCode());
     }
-
-
 
     @Test
     void deleteAssignment_ValidId_DeletesAssignment() {

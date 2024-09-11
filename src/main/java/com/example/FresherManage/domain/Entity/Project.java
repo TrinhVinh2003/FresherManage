@@ -1,13 +1,14 @@
 package com.example.FresherManage.domain.Entity;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Data
@@ -43,8 +44,7 @@ public class Project {
         CANCELED,
         CLOSED
     }
+
     @ManyToMany
     private Set<Fresher> freshers;
-
-
 }

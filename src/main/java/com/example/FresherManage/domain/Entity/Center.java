@@ -28,6 +28,4 @@ public class Center {
 
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Project> project;
-
-
 }

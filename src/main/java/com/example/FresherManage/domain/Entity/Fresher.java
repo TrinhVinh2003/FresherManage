@@ -26,6 +26,4 @@ public class Fresher {
 
     @OneToOne(mappedBy = "fresher", cascade = CascadeType.ALL)
     private Assignment assignment;
-
-
 }

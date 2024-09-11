@@ -1,10 +1,9 @@
 package com.example.FresherManage.Service;
 
-import com.example.FresherManage.Dto.request.CenterRequest;
-import com.example.FresherManage.Dto.response.CenterResponse;
-
 import java.util.List;
 
+import com.example.FresherManage.Dto.request.CenterRequest;
+import com.example.FresherManage.Dto.response.CenterResponse;
 
 public interface CenterService {
     CenterResponse createCenter(CenterRequest request);

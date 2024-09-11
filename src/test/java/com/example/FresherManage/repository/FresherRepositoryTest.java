@@ -1,21 +1,18 @@
 package com.example.FresherManage.repository;
 
+import java.util.List;
 
-import com.example.FresherManage.domain.Entity.Center;
-import com.example.FresherManage.domain.Entity.Fresher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
 
-import java.util.List;
+import com.example.FresherManage.domain.Entity.Center;
+import com.example.FresherManage.domain.Entity.Fresher;
 
 @DataJpaTest
-
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class FresherRepositoryTest {
 
@@ -24,15 +21,13 @@ public class FresherRepositoryTest {
 
     @Autowired
     private CenterRepository centerRepository;
-    @Test
-    public void FresherRepository_SaveAll_ReturnSaveFresher(){
 
-        Center center = Center.builder()
-                .name("Vmo")
-                .location("Cau giay")
-                .build();
+    @Test
+    public void FresherRepository_SaveAll_ReturnSaveFresher() {
+
+        Center center = Center.builder().name("Vmo").location("Cau giay").build();
         centerRepository.save(center);
-        //Arrange
+        // Arrange
         Fresher fresher = Fresher.builder()
                 .name("vinh")
                 .email("vinh534473@gmail.com")
@@ -40,23 +35,17 @@ public class FresherRepositoryTest {
                 .center(center)
                 .build();
 
-
-
-        //Act
+        // Act
         Fresher saveFresher = fresherRepository.save(fresher);
 
-        //Assert
+        // Assert
         Assertions.assertNotNull(saveFresher);
-        Assertions.assertTrue(saveFresher.getId() >0 );
+        Assertions.assertTrue(saveFresher.getId() > 0);
     }
 
-
     @Test
-    public void FresherRepository_GetAll_ReturnMoreThanOneFresher(){
-        Center center = Center.builder()
-                .name("Vmo")
-                .location("Cau giay")
-                .build();
+    public void FresherRepository_GetAll_ReturnMoreThanOneFresher() {
+        Center center = Center.builder().name("Vmo").location("Cau giay").build();
         centerRepository.save(center);
         Fresher fresher1 = Fresher.builder()
                 .name("vinh")
@@ -72,24 +61,18 @@ public class FresherRepositoryTest {
                 .center(center)
                 .build();
 
-
         fresherRepository.save(fresher2);
         fresherRepository.save(fresher1);
 
         List<Fresher> fresherList = fresherRepository.findAll();
 
         Assertions.assertNotNull(fresherList);
-        Assertions.assertEquals(2,fresherList.size());
-
-
+        Assertions.assertEquals(2, fresherList.size());
     }
 
     @Test
-    public void FresherRepository_FindById_ReturnMoreThanOneFresher(){
-        Center center = Center.builder()
-                .name("Vmo")
-                .location("Cau giay")
-                .build();
+    public void FresherRepository_FindById_ReturnMoreThanOneFresher() {
+        Center center = Center.builder().name("Vmo").location("Cau giay").build();
         centerRepository.save(center);
 
         Fresher fresher = Fresher.builder()
@@ -99,22 +82,16 @@ public class FresherRepositoryTest {
                 .center(center)
                 .build();
 
-
         fresherRepository.save(fresher);
 
         Fresher fresherById = fresherRepository.findById(fresher.getId()).get();
 
         Assertions.assertNotNull(fresherById);
-
-
     }
 
     @Test
-    public void FresherRepository_UpdateFresher_ReturnFresherNotNull(){
-        Center center = Center.builder()
-                .name("Vmo")
-                .location("Cau giay")
-                .build();
+    public void FresherRepository_UpdateFresher_ReturnFresherNotNull() {
+        Center center = Center.builder().name("Vmo").location("Cau giay").build();
         centerRepository.save(center);
 
         Fresher fresher = Fresher.builder()

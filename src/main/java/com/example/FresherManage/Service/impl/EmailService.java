@@ -2,12 +2,14 @@ package com.example.FresherManage.Service.impl;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +18,8 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-    public void sendProjectUpdateEmail(String to, String fresherName, String projectName, String action, String manager) {
+    public void sendProjectUpdateEmail(
+            String to, String fresherName, String projectName, String action, String manager) {
         Context context = new Context();
         context.setVariable("fresherName", fresherName);
         context.setVariable("projectName", projectName);
